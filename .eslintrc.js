@@ -8,6 +8,9 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     "jsx-quotes": ["error", "prefer-single"],
+    "eol-last": ["error", "always"],
+    "spaced-comment": ["error", "always", { markers: ["/"] }],
+    "space-before-function-paren": ["error", "never"],
     semi: ["error", "always"],
     quotes: ["error", "double"]
   },
