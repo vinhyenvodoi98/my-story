@@ -11,6 +11,7 @@ module.exports = {
     "eol-last": ["error", "always"],
     "spaced-comment": ["error", "always", { markers: ["/"] }],
     "space-before-function-paren": ["error", "never"],
+    "no-multiple-empty-lines": "error",
     semi: ["error", "always"],
     quotes: ["error", "double"]
   },
