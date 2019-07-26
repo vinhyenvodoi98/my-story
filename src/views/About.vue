@@ -4,6 +4,7 @@
       <div class="page-1 page">
         <!-- <h1 class="part-1" v-animate="{value: 'bounceInRight'}">Hello</h1> -->
         <Mystory />
+        <Audio />
       </div>
       <div class="page-2 page">
         <h1 v-animate="{value: 'bounceInLeft', delay: 0}">Where I Live</h1>
@@ -17,6 +18,31 @@
     </div>
   </div>
 </template>
+
+<script>
+import Mystory from "../components/Mystory";
+import WhereILive from "../components/WhereILive";
+import Audio from "../components/Audio";
+
+export default {
+  components: {
+    Mystory,
+    WhereILive,
+    Audio
+  },
+  data() {
+    return {
+      opts: {
+        start: 0,
+        dir: "v",
+        duration: 500,
+        beforeChange: function(currentSlideEl, currenIndex, nextIndex) {},
+        afterChange: function(currentSlideEl, currenIndex, nextIndex) {}
+      }
+    };
+  }
+};
+</script>
 
 <style>
 .fullpage-container {
@@ -54,26 +80,3 @@ p {
   font-size: 16px;
 }
 </style>
-
-<script>
-import Mystory from "../components/Mystory";
-import WhereILive from "../components/WhereILive";
-
-export default {
-  components: {
-    Mystory,
-    WhereILive
-  },
-  data() {
-    return {
-      opts: {
-        start: 0,
-        dir: "v",
-        duration: 500,
-        beforeChange: function(currentSlideEl, currenIndex, nextIndex) {},
-        afterChange: function(currentSlideEl, currenIndex, nextIndex) {}
-      }
-    };
-  }
-};
-</script>
