@@ -1,22 +1,33 @@
 <template>
   <div class="Audio">
-    <button v-if="!isPlaying" class="play_button" v-on:click="playSong">
-      <img alt="Vue logo" src="../assets/icon/play_circle.png" />
-    </button>
-    <button v-if="isPlaying" class="play_button" v-on:click="pauseSong">
-      <img alt="Vue logo" src="../assets/icon/pause_circle.png" />
-    </button>
+    <div class="audio-layout">
+      <div class="audio-box">
+        <vue-slider v-model="currentTrackDuration" :tooltip="'none'" />
+        <button v-if="!isPlaying" class="play_button" v-on:click="playSong">
+          <img alt="Vue logo" src="../assets/icon/play_circle.png" />
+        </button>
+        <button v-if="isPlaying" class="play_button" v-on:click="pauseSong">
+          <img alt="Vue logo" src="../assets/icon/pause_circle.png" />
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import song from "../data/song.json";
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/antd.css";
 
 export default {
   name: "Audio",
+  components: {
+    VueSlider
+  },
   data() {
     return {
       loading: "getLoadingState",
+      value1: 50,
       Songs: song,
       presentSongId: 0,
       lastSongId: 0,
@@ -41,15 +52,29 @@ export default {
   methods: {
     playSong() {
       console.log("play");
-      this.audio.src = this.Songs[1].audio;
+      this.audio.src = this.Songs[2].audio;
       this.audio.play();
       this.isPlaying = true;
       this.isPaused = false;
+      this.currentTrackTime = 0;
+      this.view();
     },
     pauseSong() {
       console.log("stop");
       this.isPlaying = false;
       this.audio.pause();
+    },
+    view() {
+      let song = this;
+      setInterval(function() {
+        // console.log(song.isPlaying);
+        if (song.isPlaying) {
+          song.currentTrackTime =
+            (song.audio.currentTime / song.audio.duration) * 100;
+          song.currentTrackDuration = song.currentTrackTime;
+          console.log(song.currentTrackDuration);
+        }
+      }, 500);
     }
   }
 };
@@ -61,5 +86,29 @@ export default {
   border: none;
   padding: 0;
   outline: none !important;
+}
+
+.audio-layout {
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid white;
+  width: 20%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.audio-box {
+  width: 100%;
+}
+
+.vue-slider-rail .vue-slider-process {
+  color: white !important;
+  background-color: white !important;
+}
+
+.vue-slider-dot-handle {
+  background-color: white;
+  border: 2px solid white;
 }
 </style>

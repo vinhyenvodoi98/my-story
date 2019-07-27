@@ -1,6 +1,6 @@
 <template>
   <div class="fullpage-container">
-    <div v-fullpage="opts" ref="example">
+    <div v-fullpage="opts">
       <div class="page-1 page">
         <!-- <h1 class="part-1" v-animate="{value: 'bounceInRight'}">Hello</h1> -->
         <Mystory />
@@ -35,7 +35,7 @@ export default {
       opts: {
         start: 0,
         dir: "v",
-        duration: 500,
+        duration: 1500,
         beforeChange: function(currentSlideEl, currenIndex, nextIndex) {},
         afterChange: function(currentSlideEl, currenIndex, nextIndex) {}
       }
