@@ -3,12 +3,19 @@
     <div class="audio-layout">
       <div class="audio-box">
         <vue-slider v-model="currentTrackDuration" :tooltip="'none'" />
-        <button v-if="!isPlaying" class="play_button" v-on:click="playSong">
-          <img alt="Vue logo" src="../assets/icon/play_circle.png" />
-        </button>
-        <button v-if="isPlaying" class="play_button" v-on:click="pauseSong">
-          <img alt="Vue logo" src="../assets/icon/pause_circle.png" />
-        </button>
+        <div class="row">
+          <div class="button-group">
+            <button v-if="!isPlaying" class="play_button" v-on:click="playSong(presentSongId)">
+              <img alt="Vue logo" src="../assets/icon/play_circle.png" />
+            </button>
+            <button v-if="isPlaying" class="play_button" v-on:click="pauseSong">
+              <img alt="Vue logo" src="../assets/icon/pause_circle.png" />
+            </button>
+          </div>
+          <div class="volume">
+            <vue-slider v-model="volumeSlider" :tooltip="'none'" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +41,8 @@ export default {
       isPlaying: false,
       audio: new Audio(),
       isPaused: false,
-      volume: 0.5,
+      volume: 0.3,
+      volumeSlider: 30,
       //
       timeLapse: false,
       timeBufferSecs: 0,
@@ -50,10 +58,11 @@ export default {
     };
   },
   methods: {
-    playSong() {
+    playSong(presentSongId) {
       console.log("play");
-      this.audio.src = this.Songs[2].audio;
+      this.audio.src = this.Songs[presentSongId].audio;
       this.audio.play();
+      this.audio.volume = 0.3;
       this.isPlaying = true;
       this.isPaused = false;
       this.currentTrackTime = 0;
@@ -67,12 +76,15 @@ export default {
     view() {
       let song = this;
       setInterval(function() {
-        // console.log(song.isPlaying);
+        song.audio.volume = song.volumeSlider / 100;
         if (song.isPlaying) {
           song.currentTrackTime =
             (song.audio.currentTime / song.audio.duration) * 100;
           song.currentTrackDuration = song.currentTrackTime;
-          console.log(song.currentTrackDuration);
+        }
+        if (song.currentTrackDuration === 100) {
+          clearInterval(setInterval);
+          song.playSong(++song.presentSongId);
         }
       }, 500);
     }
@@ -110,5 +122,26 @@ export default {
 .vue-slider-dot-handle {
   background-color: white;
   border: 2px solid white;
+}
+
+.button-group {
+  margin-left: 44%;
+}
+
+.volume {
+  width: 20%;
+}
+
+.volume > .vue-slider {
+  margin-top: 20%;
+}
+
+.volume > .vue-slider {
+  left: 55%;
+}
+
+.volume-icon {
+  height: 50%;
+  width: 50%;
 }
 </style>
