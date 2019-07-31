@@ -2,13 +2,17 @@
   <div class="fullpage-container">
     <div v-fullpage="opts">
       <div class="page-1 page">
+        <div class="container">
+          <Mystory />
+          <Audio />
+        </div>
         <!-- <h1 class="part-1" v-animate="{value: 'bounceInRight'}">Hello</h1> -->
-        <Mystory />
-        <Audio />
       </div>
       <div class="page-2 page">
-        <h1 v-animate="{value: 'bounceInLeft', delay: 0}">Where I Live</h1>
-        <WhereILive />
+        <div class="container">
+          <h1 v-animate="{value: 'bounceInLeft', delay: 0}">Where I Live</h1>
+          <WhereILive />
+        </div>
       </div>
       <div class="page-3 page">
         <p class="part-3" v-animate="{value: 'bounceInLeft', delay: 0}">fullpage-vue</p>

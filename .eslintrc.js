@@ -12,6 +12,7 @@ module.exports = {
     "spaced-comment": ["error", "always", { markers: ["/"] }],
     "space-before-function-paren": ["error", "never"],
     "no-multiple-empty-lines": "error",
+    "no-extend-native": ["error", { exceptions: ["String"] }],
     semi: ["error", "always"],
     quotes: ["error", "double"]
   },
