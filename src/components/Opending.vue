@@ -40,6 +40,7 @@
 </style>
 
 <script>
+import store from "../store/index";
 import { setInterval, setTimeout } from "timers";
 export default {
   name: "Opending",
@@ -69,6 +70,7 @@ export default {
   },
   mounted: function() {},
   methods: {
+    // ...mapActions(["isOpeningDone"]),
     next() {
       let text = this;
       setInterval(function() {
@@ -88,6 +90,9 @@ export default {
         }, 900);
         if (text.isIntro > 16) {
           clearInterval(this.next);
+        }
+        if (text.isIntro === 16) {
+          store.dispatch("isOpeningDone");
         }
       }, 3000);
     },
